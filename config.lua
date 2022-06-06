@@ -4,13 +4,10 @@ local minute = 60 * second
 EarlyRespawnTimer          = 8 * minutes -- Temps avant respawn (En étant Coma)
 
 Config = {
-	Locale                     = 'fr',
-	RespawnPoint = { coords = vector3(-808.56, -1224.44, 7.33), heading = 231.06 }, -- L'endroit ou tu respawn après la mort
-	RemoveWeaponsAfterRPDeath  = false, -- Supprime les arme sur sois 
-    RemoveCashAfterRPDeath     = false, -- Supprime l'argent cash et sale sur sois 
-    RemoveItemsAfterRPDeath    = false, -- Supprime tout les item sur sois 
+    Locale                     = 'fr',
+    RespawnPoint = { coords = vector3(-808.56, -1224.44, 7.33), heading = 231.06 }, -- L'endroit ou tu respawn après la mort
     BleedoutTimer              = 10 * minute, 
-	ReviveReward               = 150,
+    ReviveReward               = 150,
     AntiCombatLog              = true,
     EarlyRespawnFine           = false, 
     EarlyRespawnFineAmount     = 5000, 
