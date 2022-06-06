@@ -1,7 +1,7 @@
 local second = 1000
 local minute = 60 * second
 
-EarlyRespawnTimer          = 8 * second -- Temps avant respawn (En étant Coma)
+EarlyRespawnTimer          = 8 * minutes -- Temps avant respawn (En étant Coma)
 
 Config = {
 	Locale                     = 'fr',
