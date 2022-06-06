@@ -242,7 +242,7 @@ end)
 --- Coffre ---
 
 local mainMenu = RageUI.CreateMenu("Coffre", "Coffre entreprise")
-local PutMenu = RageUI.CreateSubMenu(mainMenu,"~Coffre", "Coffre entreprise")
+local PutMenu = RageUI.CreateSubMenu(mainMenu,"Coffre", "Coffre entreprise")
 local GetMenu = RageUI.CreateSubMenu(mainMenu,"Coffre", "Coffre entreprise")
 
 local open = false
