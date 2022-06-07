@@ -1315,7 +1315,7 @@ function OpenMenuGarageAmbulance()
                  end
              })
 
-              RageUI.Separator("↓ Véhicules de serice ↓")
+              RageUI.Separator("↓ ~y~Véhicules de serice ~s~↓")
 
                 for k,v in pairs(Config.VehiculeEMS) do
                 RageUI.Button(v.buttoname, nil, {RightLabel = "→→"}, true , {
@@ -1407,7 +1407,7 @@ function OpenMenuGarageHeliAmbulance()
                     end
                   })
 
-              RageUI.Separator("↓ Véhicules de serice ↓")
+              RageUI.Separator("↓ ~y~Véhicules de serice ~s~↓")
 
                 for k,v in pairs(Config.HelicoEMS) do
                 RageUI.Button(v.buttonameheli, nil, {RightLabel = "→"}, true , {
