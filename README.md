@@ -5,7 +5,7 @@
 #### How to start this resource ?
    - Add this line to server.cfg `ensure pEMSjob`
 
-Preview: None
+Preview: https://youtu.be/8_O4ZePyczg
 
 __English:__
    - Configure the script easily!
