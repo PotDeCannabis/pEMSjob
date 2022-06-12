@@ -1321,7 +1321,7 @@ function OpenMenuGarageAmbulance()
                 RageUI.Button(v.buttoname, nil, {RightLabel = "→→"}, true , {
                     onSelected = function()
                         if not ESX.Game.IsSpawnPointClear(vector3(v.spawnzone.x, v.spawnzone.y, v.spawnzone.z), 10.0) then
-                        ESX.ShowNotification("La sortie du garage est bloquer.")
+                        ESX.ShowNotification("~r~La sortie du garage est bloquer.")
                         else
                         local model = GetHashKey(v.spawnname)
                         RequestModel(model)
