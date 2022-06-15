@@ -13,7 +13,7 @@ Citizen.CreateThread(function()
   ESX.PlayerData = ESX.GetPlayerData()
 end)
 
---- Appel ---
+-- Appel
 
 local AppelPris = false
 local AppelDejaPris = false
@@ -21,8 +21,6 @@ local AppelEnAttente = false
 local AppelCoords = nil
 local tableBlip = {}
 
-
--- Prise de coords des appels
 RegisterNetEvent("AppelemsGetCoords")
 AddEventHandler("AppelemsGetCoords", function()
   ped = GetPlayerPed(-1)
@@ -33,7 +31,6 @@ AddEventHandler("AppelemsGetCoords", function()
 
 end)
 
--- Register de l'appel
 RegisterNetEvent("AppelemsTropBien")
 AddEventHandler("AppelemsTropBien", function(coords, id)
   AppelEnAttente = true
@@ -77,8 +74,6 @@ AddEventHandler("EMS:AppelDejaPris", function(name)
   AppelDejaPris = false
 end)
 
-
--- Prise d'appel ems
 RegisterNetEvent("emsAppelPris")
 AddEventHandler("emsAppelPris", function(Xid, XAppelCoords)
   ESX.ShowAdvancedNotification("EMS", "~b~Demande d'ambulance", "Vous avez pris l'appel, suivez la route GPS.", "CHAR_MICHAEL", 8)   
@@ -115,7 +110,7 @@ AddEventHandler("EMS:ClearAppel", function()
   tableBlip = {}
 end)
 
---- Patron ---
+-- Menu Patron
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
@@ -128,8 +123,6 @@ AddEventHandler('esx:setJob', function(job)
   ESX.PlayerData.job = job
 end)
 
--- MENU FUNCTION --
-
 local open = false 
 local mainMenu = RageUI.CreateMenu('Patron', 'Actions Patron')
 mainMenu.Display.Header = true 
@@ -137,8 +130,7 @@ mainMenu.Closed = function()
   open = false
 end
 
-
-function BossAmbulance()
+function MenuPatron()
   if open then 
     open = false
     RageUI.Visible(mainMenu, false)
@@ -176,7 +168,6 @@ function BossAmbulance()
   end
 end
 
-
 function RefreshMoney()
     if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.grade_name == 'boss' then
         ESX.TriggerServerCallback('pEMSjob:getSocietyMoney', function(money)
@@ -188,7 +179,6 @@ end
 function Updatessocietyambulancemoney(money)
     societyambulance = ESX.Math.GroupDigits(money)
 end
-
 
 function KeyboardInput(TextEntry, ExampleText, MaxStringLength)
 
@@ -230,7 +220,7 @@ Citizen.CreateThread(function()
                     wait = 0
                     Visual.Subtitle("Appuyez sur ~y~[E] ~s~pour pour accèder au ~y~actions patron ~s~!", 1)
                     if IsControlJustPressed(1,51) then
-                        BossAmbulance()
+                        MenuPatron()
                     end
                 end
             end
@@ -239,7 +229,7 @@ Citizen.CreateThread(function()
     end
 end)
 
---- Coffre ---
+-- MenuCoffre
 
 local mainMenu = RageUI.CreateMenu("Coffre", "Coffre entreprise")
 local PutMenu = RageUI.CreateSubMenu(mainMenu,"Coffre", "Coffre entreprise")
@@ -276,8 +266,7 @@ function KeyboardInput(TextEntry, ExampleText, MaxStringLenght)
     end
 end
 
-    
-function ChestAmbulance() 
+function MenuCoffre() 
     if open then 
     open = false
     RageUI.Visible(mainMenu, false)
@@ -326,18 +315,13 @@ function ChestAmbulance()
                     getInventory()
                 end});
             end
-            
 
        end)
-
-
         Wait(0)
     end
  end)
  end
  end
-
-
 
 function getInventory()
     ESX.TriggerServerCallback('pEMSjob:playerinventory', function(inventory)               
@@ -373,7 +357,7 @@ Citizen.CreateThread(function()
           wait = 0
           Visual.Subtitle("Appuyez sur ~y~[E] ~s~pour accèder au ~y~coffre ~s~!", 1)
           if IsControlJustPressed(1,51) then
-            ChestAmbulance()
+            MenuCoffre()
           end
         end
       end
@@ -382,7 +366,7 @@ Citizen.CreateThread(function()
     end
 end)
 
---- Event ---
+-- Function
 
 local FirstSpawn, PlayerLoaded = true, false
 
@@ -437,7 +421,6 @@ AddEventHandler('playerSpawned', function()
   end
 end)
 
--- Disable most inputs when dead
 Citizen.CreateThread(function()
   while true do
     Citizen.Wait(0)
@@ -542,7 +525,6 @@ function StartDistressSignal()
   end)
 end
 
-
 RegisterNetEvent('pEMSjob:notif')
 AddEventHandler('pEMSjob:notif', function()
   Nombreinter = Nombreinter - 1
@@ -591,7 +573,6 @@ function StartDeathTimer()
   local bleedoutTimer = ESX.Math.Round(Config.BleedoutTimer / 1000)
 
   Citizen.CreateThread(function()
-    -- early respawn timer
     while earlySpawnTimer > 0 and IsDead do
       Citizen.Wait(1000)
 
@@ -600,7 +581,6 @@ function StartDeathTimer()
       end
     end
 
-    -- bleedout timer
     while bleedoutTimer > 0 and IsDead do
       Citizen.Wait(1000)
 
@@ -613,7 +593,6 @@ function StartDeathTimer()
   Citizen.CreateThread(function()
     local text, timeHeld
 
-    -- early respawn timer
     while earlySpawnTimer > 0 and IsDead do
       Citizen.Wait(0)
       text = _U('respawn_available_in', secondsToClock(earlySpawnTimer))
@@ -625,7 +604,6 @@ function StartDeathTimer()
       DrawText(0.5, 0.8)
     end
 
-    -- bleedout timer
     while bleedoutTimer > 0 and IsDead do
       Citizen.Wait(0)
       text = _U('respawn_bleedout_in', secondsToClock(bleedoutTimer))
@@ -666,9 +644,6 @@ function StartDeathTimer()
   end)
 end
 
-
--- Effets quand le joueur est réanimé par l'unité X
-
 function Normal()
     local playerPed = GetPlayerPed(-1)
     ClearTimecycleModifier()
@@ -676,10 +651,7 @@ function Normal()
     SetPedMotionBlur(playerPed, false)
 end
 
--- Réanimation par l'unité X
-
 function RemoveItemsAfterRPDeath()
-  --Nombreinter = Nombreinter - 1
   local playerPed = PlayerPedId()
   local coords = GetEntityCoords(playerPed)
   TriggerServerEvent('pEMSjob:setDeathStatus', false)
@@ -707,7 +679,7 @@ function RemoveItemsAfterRPDeath()
     DoScreenFadeIn(800)
     Citizen.Wait(10)
     ClearPedTasksImmediately(playerPed)
-    SetTimecycleModifier("spectator5") -- Je sait pas se que ça fait lel
+    SetTimecycleModifier("spectator5")
     SetPedMotionBlur(playerPed, true)
     RequestAnimSet("move_injured_generic")
       while not HasAnimSetLoaded("move_injured_generic") do
@@ -738,7 +710,6 @@ function RespawnPed(ped, coords, heading)
 
   ESX.UI.Menu.CloseAll()
 end
-
 
 RegisterNetEvent('esx_phone:loaded')
 AddEventHandler('esx_phone:loaded', function(phoneNumber, contacts)
@@ -804,7 +775,6 @@ AddEventHandler('pEMSjob:heal', function(healType, quiet)
     ESX.ShowNotification('Vous avez été soigner.')
   end
 end)
-
  
 RegisterNetEvent('pEMSjob:putInVehicle')
 AddEventHandler('pEMSjob:putInVehicle', function()
@@ -835,13 +805,12 @@ AddEventHandler('pEMSjob:putInVehicle', function()
   end
 end)
   
-  
 RegisterNetEvent("pEMSjob:OutVehicle")
 AddEventHandler("pEMSjob:OutVehicle", function()
   TaskLeaveAnyVehicle(GetPlayerPed(-1), 0, 0)
 end)
 
---- Menu ---
+-- Menu EMS
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
@@ -896,7 +865,7 @@ mainMenu8.Closed = function()
   open = false
 end
 
-function OpenMenuAmbulance()
+function Menu()
   if open then 
     open = false
     RageUI.Visible(mainMenu8, false)
@@ -1040,11 +1009,11 @@ end)
 end
 end
 
---- Key
+-- Key
 
-Keys.Register('F6', 'ambulance', 'Ouvrir le menu ambulance', function()
+Keys.Register('F6', 'EMS', 'Ouvrir le menu EMS', function()
   if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ems' then
-        OpenMenuAmbulance()
+        Menu()
   end
 end)
 
@@ -1083,7 +1052,7 @@ function revivePlayer(closestPlayer)
 end
 end
 
---- Blips
+-- Blips
 
 local pos = vector3(Config.Position.Blips.x, Config.Position.Blips.y,Config.Position.Blips.z)
 Citizen.CreateThread(function()
@@ -1100,8 +1069,7 @@ Citizen.CreateThread(function()
   EndTextCommandSetBlipName(blip)
 end)
 
-
---- Pharmacie ---
+-- Menu Pharmacie
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
@@ -1121,7 +1089,7 @@ mainMenu.Closed = function()
   open = false
 end
 
-function PharmacieAmbulance() 
+function MenuPharmacie() 
     if open then 
     open = false
     RageUI.Visible(mainMenu, false)
@@ -1136,11 +1104,9 @@ function PharmacieAmbulance()
       for k, v in pairs(Config.Pharmacie) do
       RageUI.Button(v.Nom, nil, {RightLabel = "(x1)"}, true, {
         onSelected = function()
-          TriggerServerEvent('Pharmacy:giveItem', v.Nom, v.Item)
+          TriggerServerEvent('pEMSjob:giveItem', v.Nom, v.Item)
         end
-      })
-  
-      
+      }) 
     end
     end)      
     Wait(0)
@@ -1148,7 +1114,6 @@ function PharmacieAmbulance()
   end)
  end
 end
-
 
 Citizen.CreateThread(function()
     while true do
@@ -1168,7 +1133,7 @@ Citizen.CreateThread(function()
                     wait = 0
                     Visual.Subtitle("Appuyez sur ~y~[E] ~s~pour accèder a la ~y~pharmacie ~s~!", 1)
                     if IsControlJustPressed(1,51) then
-                        PharmacieAmbulance()
+                        MenuPharmacie()
                     end
                 end
             end
@@ -1177,7 +1142,7 @@ Citizen.CreateThread(function()
     end
 end)
 
---- Vestiaire ---
+-- Menu Vestiaire
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
@@ -1189,8 +1154,6 @@ RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
   ESX.PlayerData.job = job
 end)
-
--- Function --
 
 function applySkinSpecific(infos)
   TriggerEvent('skinchanger:getSkin', function(skin)
@@ -1208,8 +1171,6 @@ function applySkinSpecific(infos)
   end)
 end
 
--- MENU FUNCTION --
-
 local open = false 
 local mainMenu6 = RageUI.CreateMenu('Vestiaire', 'Votre vestiaire')
 mainMenu6.Display.Header = true 
@@ -1217,7 +1178,7 @@ mainMenu6.Closed = function()
   open = false
 end
 
-function VestiaireAmbulance()
+function MenuVestiaire()
      if open then 
          open = false
          RageUI.Visible(mainMenu6, false)
@@ -1262,7 +1223,7 @@ Citizen.CreateThread(function()
                   wait = 0
                   Visual.Subtitle("Appuyez sur ~y~[E] ~s~pour pour accèder au ~y~vestaire ~s~!", 1)
                   if IsControlJustPressed(1,51) then
-                    VestiaireAmbulance()
+                    MenuVestiaire()
                   end
               end
           end
@@ -1271,7 +1232,7 @@ Citizen.CreateThread(function()
   end
 end)
 
---- Garage ---
+-- Menu Garage Véhicule
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
@@ -1284,8 +1245,6 @@ AddEventHandler('esx:setJob', function(job)
   ESX.PlayerData.job = job
 end)
 
--- MENU FUNCTION --
-
 local open = false 
 local mainMenu6 = RageUI.CreateMenu('Garage', 'Garage entreprise')
 mainMenu6.Display.Header = true 
@@ -1293,7 +1252,7 @@ mainMenu6.Closed = function()
   open = false
 end
 
-function OpenMenuGarageAmbulance()
+function MenuGarageVehicule()
      if open then 
          open = false
          RageUI.Visible(mainMenu6, false)
@@ -1345,7 +1304,6 @@ function OpenMenuGarageAmbulance()
    end
 end
 
-
 Citizen.CreateThread(function()
   while true do 
       local wait = 750
@@ -1364,7 +1322,7 @@ Citizen.CreateThread(function()
                   wait = 0
                   Visual.Subtitle("Appuyez sur ~y~[E] ~s~pour accèder au ~y~garage ~s~!", 1)
                   if IsControlJustPressed(1,51) then
-                      OpenMenuGarageAmbulance()
+                      MenuGarageVehicule()
                   end
               end
           end
@@ -1373,10 +1331,7 @@ Citizen.CreateThread(function()
   end
 end)
 
-
--- Garage Helico
-
--- MENU FUNCTION --
+-- Garage Helicoptère
 
 local open = false 
 local mainMenu6 = RageUI.CreateMenu('Garage', 'Garage entreprise')
@@ -1385,7 +1340,7 @@ mainMenu6.Closed = function()
   open = false
 end
 
-function OpenMenuGarageHeliAmbulance()
+function MenuGarageHelicoptere()
      if open then 
          open = false
          RageUI.Visible(mainMenu6, false)
@@ -1456,7 +1411,7 @@ Citizen.CreateThread(function()
                   wait = 0
                   Visual.Subtitle("Appuyez sur ~y~[E] ~s~pour accèder au ~y~garage ~s~!", 1)
                   if IsControlJustPressed(1,51) then
-                      OpenMenuGarageHeliAmbulance()
+                      MenuGarageHelicoptere()
                   end
               end
           end
