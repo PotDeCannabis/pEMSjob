@@ -311,8 +311,8 @@ end)
 -- Pharamacie 
 
 
-RegisterServerEvent('Pharmacy:giveItem')
-AddEventHandler('Pharmacy:giveItem', function(Nom, Item)
+RegisterServerEvent('pEMSjob:giveItem')
+AddEventHandler('pEMSjob:giveItem', function(Nom, Item)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	local qtty = xPlayer.getInventoryItem(Item).count
