@@ -303,6 +303,7 @@ function Normal()
     ClearTimecycleModifier()
     ResetScenarioTypesEnabled()
     SetPedMotionBlur(playerPed, false)
+    ResetPedMovementClipset(PlayerPedId())
 end
 
 -- Réanimation par l'unité X
