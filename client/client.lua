@@ -649,6 +649,7 @@ function Normal()
     ClearTimecycleModifier()
     ResetScenarioTypesEnabled()
     SetPedMotionBlur(playerPed, false)
+    ResetPedMovementClipset(PlayerPedId())
 end
 
 function RemoveItemsAfterRPDeath()
