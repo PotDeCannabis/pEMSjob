@@ -136,15 +136,9 @@ end, function(source, args, user)
 end, {help = ('Réanimer un joueur'), params = {{name = 'id'}}})
 
 TriggerEvent('es:addGroupCommand', 'reviveall', 'mod', function(source, args, user)
-	if args[1] ~= nil then
-		if GetPlayerName(tonumber(args[1])) ~= nil then
-			TriggerClientEvent('pEMSjob:revive', tonumber(args[1]))
-		end
-	else
-		TriggerClientEvent('pEMSjob:revive', -1)
-	end
+    TriggerClientEvent('pEMSjob:revive', -1)
 end, function(source, args, user)
-	TriggerClientEvent('chatMessage', source, "SYSTEM", {255, 0, 0}, "Insufficient Permissions.")
+    TriggerClientEvent('chatMessage', source, "SYSTEM", {255, 0, 0}, "Insufficient Permissions.")
 end, {help = ('Réanimer tout les joueurs'), params = {{name = 'id'}}})
 
 ESX.RegisterUsableItem('medikit', function(source)
